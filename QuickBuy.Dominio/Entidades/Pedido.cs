@@ -39,6 +39,11 @@ namespace QuickBuy.Dominio.Entidades
             {
                 AdicionarMensagem("CEP não pode ser vazio");
             }
+
+            if (IdFormaPagamento == 0)
+            {
+                AdicionarMensagem("Não foi informado uma forma de pagamento");
+            }
         }
     }
 }
