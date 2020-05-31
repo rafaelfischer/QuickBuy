@@ -1,7 +1,7 @@
 ﻿using QuickBuy.Dominio.Entidades;
 
 namespace QuickBuy.Dominio.Contratos {
-	public interface IProdutoRepositorio : IBaseRespositorio<Produto> {
+	public interface IUsuarioRepositorio : IBaseRespositorio<Usuario> {
 
 	}
 }

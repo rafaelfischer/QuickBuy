@@ -1,42 +1,41 @@
-﻿using QuickBuy.Dominio.Contratos;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
 
-namespace QuickBuy.Repositorio.Repositorios
-{
-    public class BaseRespositorio<TEntity> : IBaseRespositorio<TEntity> where TEntity : class
-    {
-        public BaseRespositorio()
-        {
+using QuickBuy.Dominio.Contratos;
+using QuickBuy.Repositorio.Contexto;
 
-        }
-        public void Adicionar(TEntity entity)
-        {
-            throw new System.NotImplementedException();
-        }
+namespace QuickBuy.Repositorio.Repositorios {
+	public class BaseRespositorio<TEntity> : IBaseRespositorio<TEntity> where TEntity : class {
+		protected readonly QuickBuyContexto QuickBuyContexto;
+		public BaseRespositorio(QuickBuyContexto quickBuyContexto) {
+			QuickBuyContexto = quickBuyContexto;
+		}
 
-        public void Atualizar(TEntity entity)
-        {
-            throw new System.NotImplementedException();
-        }
+		public void Adicionar(TEntity entity) {
+			QuickBuyContexto.Set<TEntity>().Add(entity);
+			QuickBuyContexto.SaveChanges();
+		}
 
-        public TEntity ObterPorId(int id)
-        {
-            throw new System.NotImplementedException();
-        }
+		public void Atualizar(TEntity entity) {
+			QuickBuyContexto.Set<TEntity>().Update(entity);
+			QuickBuyContexto.SaveChanges();
+		}
 
-        public IEnumerable<TEntity> ObterTodos()
-        {
-            throw new System.NotImplementedException();
-        }
+		public TEntity ObterPorId(int id) {
+			return QuickBuyContexto.Set<TEntity>().Find(id);
+		}
 
-        public void Remover(TEntity entity)
-        {
-            throw new System.NotImplementedException();
-        }
+		public IEnumerable<TEntity> ObterTodos() {
+			return QuickBuyContexto.Set<TEntity>().ToList();
+		}
 
-        public void Dispose()
-        {
+		public void Remover(TEntity entity) {
+			QuickBuyContexto.Remove(entity);
+			QuickBuyContexto.SaveChanges();
+		}
 
-        }
-    }
+		public void Dispose() {
+			QuickBuyContexto.Dispose();
+		}
+	}
 }
