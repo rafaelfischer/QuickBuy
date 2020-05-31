@@ -1,14 +1,23 @@
-﻿import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Component, Inject } from '@angular/core';
 
 @Component({
-    selector: 'app-produto',
-    templateUrl: './produto.component.html',
-    styleUrls: ['./produto.component.css']
+  selector: 'app-produto',
+  templateUrl: './produto.component.html'
 })
-/** Produto component*/
 export class ProdutoComponent {
-    /** Produto ctor */
-    constructor() {
+  public produtos: Produto[];
 
-    }
+  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
+    http.get<Produto[]>(baseUrl + 'api/produto').subscribe(result => {
+      this.produtos = result;
+    }, error => console.error(error));
+  }
+}
+
+interface Produto {
+  id: string;
+  nome: number;
+  descricao: number;
+  preco: string;
 }

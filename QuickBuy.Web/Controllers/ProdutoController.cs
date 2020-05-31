@@ -40,7 +40,7 @@ namespace QuickBuy.Web.Controllers {
 			}
 		}
 
-		[HttpPost]
+		[HttpPut]
 		public IActionResult Put([FromBody] Produto produto) {
 			try {
 				if(produto is null) {
